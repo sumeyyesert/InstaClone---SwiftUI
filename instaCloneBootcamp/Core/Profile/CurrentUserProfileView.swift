@@ -1,16 +1,13 @@
 //
-//  ProfileView.swift
+//  CurrentUserProfileView.swift
 //  instaCloneBootcamp
 //
-//  Created by Sümeyye Sert on 21.03.2025.
+//  Created by Sümeyye Sert on 31.03.2025.
 //
 
 import SwiftUI
 
-struct ProfileView: View {
-    
-    let user: User
-    
+struct CurrentUserProfileView: View {
     private let gridItems: [GridItem] = [
         .init(.flexible(), spacing: 1),
         .init(.flexible(), spacing: 1),
@@ -19,14 +16,14 @@ struct ProfileView: View {
     
     
     var body: some View {
-        //NavigationStack {
+        NavigationStack {
             ScrollView {
                 VStack {
                     // HEADER
                     VStack(spacing: 10) {
                         // profil
                         HStack {
-                            Image(user.profileImageUrl ?? "")
+                            Image("profilePhoto")
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 80, height: 80)
@@ -41,19 +38,14 @@ struct ProfileView: View {
                         .padding(.horizontal)
                         
                         // isim ve açıklama
+                        // Vstack yanındaki parametreleri ve frame padding kısımlarını yazıları sola yapıştırmak için yaptık
                         VStack(alignment: .leading, spacing: 4) {
+                            Text("Sümeyye Sert")
+                                .font(.footnote)
+                                .fontWeight(.semibold)
                             
-                            if let fullname = user.fullname {
-                                Text(fullname)
-                                    .font(.footnote)
-                                    .fontWeight(.semibold)
-                            }
-
-                            if let bio = user.bio{
-                                Text(bio)
-                                    .font(.footnote)
-                            }
-
+                            Text("itü")
+                                .font(.footnote)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
@@ -88,11 +80,20 @@ struct ProfileView: View {
             }
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
-
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "line.horizontal.3")
+                            .foregroundStyle(Color("buttonTextColor"))
+                    }
+                }
+            }
         }
     }
-//}
+}
 
 #Preview {
-    ProfileView(user: User.MOCK_USER[0])
+    CurrentUserProfileView()
 }
